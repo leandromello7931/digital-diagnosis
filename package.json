@@ -1,0 +1,26 @@
+{
+  "name": "digital-diagnosis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^18.3.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mariadb": "^2.1.0",
+    "mysql2": "^1.6.5",
+    "require-dir": "^1.2.0",
+    "sequelize": "^5.14.0"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^5.5.0"
+  }
+}
