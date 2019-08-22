@@ -12,14 +12,14 @@ app.get('/diagnoses', async (req, res) => {
 
 app.post('/diagnoses', async (req, res) => {
   if (JSON.stringify(req.body) == "{}"){
-    return res.status(400).json({Error: "Register request body isn't in the correct format"});
+    return res.status(400).json({Error: "Register request body isn't in the correct format."});
   }
 
   await Diagnosis.create(req.body)
   .then(function(diagnosis){
     return res.status(200).json(diagnosis);
   }).catch(function (err){
-    return res.status(500).json({error: "Issue trying insert the record"+err});
+    return res.status(500).json({error: "Issue trying insert the record "+err});
   })
 }); // Create
 
@@ -28,27 +28,39 @@ app.get('/diagnoses/:id', async (req, res) => {
   .then(function(diagnosis){
     return res.status(200).json(diagnosis);
   }).catch(function(){
-    return res.status(500).json({error: "An error has ocurred, please try again later"});
+    return res.status(500).json({error: "An error has ocurred, please try again later."});
   });
 }); //Find
 
 app.put('/diagnoses/:id', async (req, res) => {
   await Diagnosis.update(req.body, {where:{id: req.params.id}})
   .catch(function(){
-    return res.status(500).json({error: "An error has ocurred, please try again later"});
+    return res.status(500).json({error: "An error has ocurred, please try again later."});
   });
   
   await Diagnosis.findByPk(req.params.id)
   .then(function(diagnosis){
     return res.status(200).json(diagnosis);
   }).catch(function(){
-    return res.status(500).json({error: "An error has ocurred, please try again later"});
+    return res.status(500).json({error: "An error has ocurred, please try again later."});
   });
   
 }); //Update
 
-app.delete('/diagnoses/:id', (req, res) => {
-
+app.delete('/diagnoses/:id', async (req, res) => {
+  await Diagnosis.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(function(qtdElemDeleted){
+    if (qtdElemDeleted > 0)
+      return res.status(200).json({message: qtdElemDeleted + " record(s) deleted."})
+    
+    return res.status(200).json({message: "No records found."})
+  }).catch(function(){
+    return res.status(500).json({error: "An error has ocurred, please try again later."});
+  });
 }); //Deletar
 
 
