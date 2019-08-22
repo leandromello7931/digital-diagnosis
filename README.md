@@ -12,4 +12,3 @@
 
 ## npm i -D sequelize-cli
 
-## npx sequelize init
